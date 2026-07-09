@@ -1,0 +1,1058 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Privacy Toolkit — Curated Directory of Privacy &amp; Security Tools</title>
+<meta name="description" content="A curated directory of trustworthy privacy, security and anonymity tools and resources.">
+
+<style>
+  /* ==========================================================
+     ROOT VARIABLES / DARK THEME PALETTE
+     ========================================================== */
+  :root{
+    --bg:#0b0e14;
+    --bg-alt:#11141d;
+    --surface:#161a24;
+    --surface-hover:#1d2230;
+    --border:#252b3a;
+    --text:#e6e8ef;
+    --text-dim:#9aa3b5;
+    --text-faint:#6b7284;
+    --accent:#5eead4;
+    --accent-2:#7c9cff;
+    --accent-soft:rgba(94,234,212,0.12);
+    --danger:#ff6b6b;
+    --radius:14px;
+    --radius-sm:8px;
+    --shadow:0 10px 30px rgba(0,0,0,0.35);
+    --maxw:1200px;
+  }
+
+  *{ box-sizing:border-box; }
+
+  html{ scroll-behavior:smooth; }
+
+  body{
+    margin:0;
+    background:
+      radial-gradient(1200px 600px at 10% -10%, rgba(124,156,255,0.08), transparent 60%),
+      radial-gradient(1000px 500px at 100% 0%, rgba(94,234,212,0.08), transparent 60%),
+      var(--bg);
+    color:var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  a{ color:inherit; text-decoration:none; }
+
+  ::selection{ background:var(--accent-soft); color:var(--text); }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar{ width:10px; height:10px; }
+  ::-webkit-scrollbar-track{ background:var(--bg); }
+  ::-webkit-scrollbar-thumb{ background:#2a3142; border-radius:10px; }
+  ::-webkit-scrollbar-thumb:hover{ background:#38415a; }
+
+  /* ==========================================================
+     HEADER / HERO
+     ========================================================== */
+  header.hero{
+    padding:56px 24px 32px;
+    text-align:center;
+    max-width:var(--maxw);
+    margin:0 auto;
+  }
+  header.hero h1{
+    font-size:clamp(28px,5vw,44px);
+    margin:0 0 10px;
+    letter-spacing:-0.03em;
+    background:linear-gradient(120deg, var(--text) 30%, var(--accent) 60%, var(--accent-2) 100%);
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+  }
+  header.hero p{
+    color:var(--text-dim);
+    max-width:640px;
+    margin:0 auto;
+    font-size:15px;
+  }
+  header.hero .badges{
+    margin-top:18px;
+    display:flex;
+    justify-content:center;
+    gap:10px;
+    flex-wrap:wrap;
+  }
+  header.hero .badge{
+    font-size:12px;
+    padding:6px 12px;
+    border:1px solid var(--border);
+    border-radius:999px;
+    color:var(--text-dim);
+    background:var(--surface);
+  }
+
+  /* ==========================================================
+     STICKY SEARCH BAR
+     ========================================================== */
+  .search-sticky{
+    position:sticky;
+    top:0;
+    z-index:50;
+    background:rgba(11,14,20,0.85);
+    backdrop-filter:blur(10px) saturate(140%);
+    -webkit-backdrop-filter:blur(10px) saturate(140%);
+    border-bottom:1px solid var(--border);
+    padding:14px 24px;
+  }
+  .search-wrap{
+    max-width:var(--maxw);
+    margin:0 auto;
+    display:flex;
+    gap:12px;
+    align-items:center;
+    flex-wrap:wrap;
+  }
+  .search-box{
+    flex:1 1 320px;
+    position:relative;
+  }
+  .search-box input{
+    width:100%;
+    padding:13px 16px 13px 42px;
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:var(--radius-sm);
+    color:var(--text);
+    font-size:15px;
+    outline:none;
+    transition:border-color .15s ease, box-shadow .15s ease;
+  }
+  .search-box input::placeholder{ color:var(--text-faint); }
+  .search-box input:focus{
+    border-color:var(--accent);
+    box-shadow:0 0 0 3px var(--accent-soft);
+  }
+  .search-box .icon{
+    position:absolute;
+    left:14px; top:50%;
+    transform:translateY(-50%);
+    opacity:.6;
+    pointer-events:none;
+  }
+  .result-counter{
+    font-size:13px;
+    color:var(--text-dim);
+    white-space:nowrap;
+    padding:8px 14px;
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:999px;
+  }
+  .result-counter strong{ color:var(--accent); }
+
+  .toolbar-buttons{ display:flex; gap:8px; }
+  .btn-small{
+    font-size:13px;
+    padding:8px 14px;
+    border-radius:999px;
+    border:1px solid var(--border);
+    background:var(--surface);
+    color:var(--text-dim);
+    cursor:pointer;
+    transition:all .15s ease;
+    white-space:nowrap;
+  }
+  .btn-small:hover{ background:var(--surface-hover); color:var(--text); border-color:#333b4d; }
+
+  /* ==========================================================
+     CATEGORY NAV
+     ========================================================== */
+  nav.cat-nav{
+    max-width:var(--maxw);
+    margin:20px auto 0;
+    padding:0 24px;
+  }
+  nav.cat-nav .cat-nav-inner{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+    padding:14px;
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:var(--radius);
+  }
+  nav.cat-nav a{
+    font-size:13px;
+    padding:7px 12px;
+    border-radius:999px;
+    color:var(--text-dim);
+    background:var(--bg-alt);
+    border:1px solid transparent;
+    transition:all .15s ease;
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+  }
+  nav.cat-nav a:hover{
+    color:var(--text);
+    border-color:var(--accent);
+    background:var(--accent-soft);
+  }
+  nav.cat-nav a .count{
+    font-size:11px;
+    color:var(--text-faint);
+  }
+
+  /* ==========================================================
+     MAIN CONTENT / CATEGORIES
+     ========================================================== */
+  main{
+    max-width:var(--maxw);
+    margin:0 auto;
+    padding:32px 24px 80px;
+  }
+
+  .category-block{
+    margin-bottom:22px;
+    border:1px solid var(--border);
+    border-radius:var(--radius);
+    background:var(--bg-alt);
+    overflow:hidden;
+    scroll-margin-top:90px;
+  }
+
+  .category-header{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:14px;
+    padding:18px 20px;
+    cursor:pointer;
+    user-select:none;
+    transition:background .15s ease;
+  }
+  .category-header:hover{ background:var(--surface); }
+
+  .category-header .title-group{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    min-width:0;
+  }
+  .category-header .emoji{
+    font-size:22px;
+    width:40px; height:40px;
+    display:flex; align-items:center; justify-content:center;
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:10px;
+    flex-shrink:0;
+  }
+  .category-header h2{
+    font-size:17px;
+    margin:0;
+    letter-spacing:-0.01em;
+  }
+  .category-header .subcount{
+    font-size:12.5px;
+    color:var(--text-faint);
+    margin-top:2px;
+  }
+  .category-header .chevron{
+    color:var(--text-dim);
+    transition:transform .2s ease;
+    flex-shrink:0;
+  }
+  .category-block.collapsed .chevron{ transform:rotate(-90deg); }
+
+  .category-body{
+    padding:4px 20px 20px;
+    display:grid;
+    grid-template-columns:repeat(auto-fill, minmax(270px,1fr));
+    gap:14px;
+  }
+  .category-block.collapsed .category-body{ display:none; }
+
+  /* ==========================================================
+     TOOL CARDS
+     ========================================================== */
+  .card{
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:var(--radius-sm);
+    padding:16px;
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+    transition:transform .15s ease, border-color .15s ease, box-shadow .15s ease;
+  }
+  .card:hover{
+    transform:translateY(-3px);
+    border-color:#333b52;
+    box-shadow:var(--shadow);
+  }
+  .card h3{
+    font-size:15px;
+    margin:0;
+    color:var(--text);
+    letter-spacing:-0.01em;
+  }
+  .card .url-line{
+    font-size:12px;
+    color:var(--accent);
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+  }
+  .card p.desc{
+    font-size:13px;
+    color:var(--text-dim);
+    margin:0;
+    flex:1;
+  }
+  .card .card-actions{
+    display:flex;
+    gap:8px;
+    margin-top:4px;
+  }
+  .card .card-actions button, .card .card-actions a{
+    flex:1;
+    font-size:12.5px;
+    padding:8px 10px;
+    text-align:center;
+    border-radius:8px;
+    border:1px solid var(--border);
+    background:var(--bg-alt);
+    color:var(--text-dim);
+    cursor:pointer;
+    transition:all .15s ease;
+  }
+  .card .card-actions button:hover, .card .card-actions a:hover{
+    background:var(--accent-soft);
+    color:var(--accent);
+    border-color:var(--accent);
+  }
+  .card .card-actions button.copied{
+    background:var(--accent-soft);
+    color:var(--accent);
+    border-color:var(--accent);
+  }
+
+  .no-results{
+    text-align:center;
+    color:var(--text-faint);
+    padding:60px 20px;
+    font-size:15px;
+    display:none;
+  }
+
+  /* ==========================================================
+     BACK TO TOP
+     ========================================================== */
+  #backToTop{
+    position:fixed;
+    bottom:24px;
+    right:24px;
+    width:46px;
+    height:46px;
+    border-radius:50%;
+    background:var(--accent);
+    color:#04241f;
+    border:none;
+    font-size:18px;
+    cursor:pointer;
+    display:none;
+    align-items:center;
+    justify-content:center;
+    box-shadow:0 6px 20px rgba(94,234,212,0.35);
+    z-index:60;
+    transition:transform .15s ease, opacity .15s ease;
+  }
+  #backToTop:hover{ transform:translateY(-3px); }
+
+  /* ==========================================================
+     FOOTER
+     ========================================================== */
+  footer{
+    text-align:center;
+    padding:36px 24px 60px;
+    color:var(--text-faint);
+    font-size:13px;
+    border-top:1px solid var(--border);
+  }
+  footer a{ color:var(--accent-2); }
+
+  /* ==========================================================
+     RESPONSIVE
+     ========================================================== */
+  @media (max-width:640px){
+    header.hero{ padding:40px 16px 24px; }
+    .search-sticky{ padding:12px 16px; }
+    nav.cat-nav{ padding:0 16px; }
+    main{ padding:24px 16px 60px; }
+    .category-body{ grid-template-columns:1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ============================================================
+     HERO / HEADER
+     ============================================================ -->
+<header class="hero">
+  <h1>🔒 Privacy Toolkit</h1>
+  <p>A curated directory of trustworthy privacy, security and anonymity tools</p>
+  <div class="badges">
+    <span class="badge" id="totalToolsBadge">150+ tools</span>
+    <span class="badge" id="totalCatsBadge">23 categories</span>
+  </div>
+</header>
+
+<!-- ============================================================
+     STICKY SEARCH BAR
+     ============================================================ -->
+<div class="search-sticky">
+  <div class="search-wrap">
+    <div class="search-box">
+      <span class="icon">🔎</span>
+      <input type="text" id="searchInput" placeholder="Search tools by name, description or category…" autocomplete="off">
+    </div>
+    <div class="result-counter" id="resultCounter"><strong>150</strong> tools shown</div>
+    <div class="toolbar-buttons">
+      <button class="btn-small" id="expandAllBtn">Expand all</button>
+      <button class="btn-small" id="collapseAllBtn">Collapse all</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     CATEGORY NAVIGATION (filled by JS)
+     ============================================================ -->
+<nav class="cat-nav">
+  <div class="cat-nav-inner" id="catNav"></div>
+</nav>
+
+<!-- ============================================================
+     MAIN CONTENT (filled by JS)
+     ============================================================ -->
+<main id="mainContent">
+  <div class="no-results" id="noResults">No tools match your search. Try a different keyword.</div>
+</main>
+
+<button id="backToTop" title="Back to top">↑</button>
+
+<footer>
+  <p>Privacy Toolkit — a curated directory of privacy and security resources. Verify links independently before relying on any tool for sensitive needs.</p>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+
+  /* ==========================================================
+     1. DATA — category metadata (order = alphabetical, with icon)
+     ========================================================== */
+  var CATEGORY_META = [
+    { name: "Account Cleanup", icon: "🧹" },
+    { name: "Ad & Tracker Blocking", icon: "🛡️" },
+    { name: "Anonymous Browsing", icon: "🕵️" },
+    { name: "Browser Privacy Tests", icon: "🔬" },
+    { name: "Data Breach Checkers", icon: "🚨" },
+    { name: "DNS Privacy", icon: "🌐" },
+    { name: "Encrypted Cloud Storage", icon: "☁️" },
+    { name: "Encrypted Email", icon: "📧" },
+    { name: "File Encryption", icon: "🔐" },
+    { name: "Identity Protection", icon: "🪪" },
+    { name: "Metadata Tools", icon: "🧾" },
+    { name: "Mobile Privacy", icon: "📱" },
+    { name: "Open Source Privacy Projects", icon: "🧩" },
+    { name: "Password Managers", icon: "🔑" },
+    { name: "Privacy Guides", icon: "📚" },
+    { name: "Privacy Search Engines", icon: "🔎" },
+    { name: "Privacy Tools", icon: "🧰" },
+    { name: "Privacy-focused Operating Systems", icon: "💻" },
+    { name: "Secure Browsers", icon: "🌍" },
+    { name: "Secure Messaging", icon: "💬" },
+    { name: "Security Testing", icon: "🧪" },
+    { name: "Temporary Email", icon: "✉️" },
+    { name: "VPN Services", icon: "🛰️" }
+  ];
+
+  /* ==========================================================
+     2. DATA — the tools themselves
+     ========================================================== */
+  var TOOLS = [
+    // Account Cleanup
+    { cat:"Account Cleanup", name:"Just Delete Me", url:"https://justdeleteme.xyz/", desc:"Directory of direct links and difficulty ratings for deleting accounts from popular websites and services." },
+    { cat:"Account Cleanup", name:"Deseat.me", url:"https://www.deseat.me/", desc:"Scans your email inbox to find accounts you have signed up for and helps you delete the ones you no longer need." },
+    { cat:"Account Cleanup", name:"Account Killer", url:"https://www.accountkiller.com/", desc:"Step-by-step instructions for closing accounts on hundreds of online services." },
+    { cat:"Account Cleanup", name:"Google Takeout", url:"https://takeout.google.com/", desc:"Official Google tool to export and download a copy of your data before deleting or migrating accounts." },
+    { cat:"Account Cleanup", name:"Facebook Download Your Information", url:"https://www.facebook.com/dyi", desc:"Facebook's official feature for downloading or requesting deletion of your personal data." },
+    { cat:"Account Cleanup", name:"Cloaked", url:"https://cloaked.com/", desc:"Generates disposable phone numbers, emails and passwords to help you clean up and protect your digital footprint." },
+
+    // Ad & Tracker Blocking
+    { cat:"Ad & Tracker Blocking", name:"uBlock Origin", url:"https://ublockorigin.com/", desc:"Efficient, open-source wide-spectrum content and ad blocker for major browsers." },
+    { cat:"Ad & Tracker Blocking", name:"Pi-hole", url:"https://pi-hole.net/", desc:"Network-wide ad and tracker blocking via DNS sinkholing, run on your own hardware." },
+    { cat:"Ad & Tracker Blocking", name:"AdGuard", url:"https://adguard.com/", desc:"Ad and tracker blocking available as browser extension, desktop app and DNS service." },
+    { cat:"Ad & Tracker Blocking", name:"Privacy Badger", url:"https://privacybadger.org/", desc:"EFF browser extension that automatically learns to block invisible trackers." },
+    { cat:"Ad & Tracker Blocking", name:"Ghostery", url:"https://www.ghostery.com/", desc:"Browser extension that blocks ads and trackers and shows who is tracking you on each page." },
+    { cat:"Ad & Tracker Blocking", name:"Blokada", url:"https://blokada.org/", desc:"Open-source ad and tracker blocker for Android and iOS using local VPN or DNS." },
+    { cat:"Ad & Tracker Blocking", name:"AdNauseam", url:"https://adnauseam.io/", desc:"Browser extension that blocks ads while obfuscating advertising profiles by clicking hidden ads." },
+    { cat:"Ad & Tracker Blocking", name:"NoScript", url:"https://noscript.net/", desc:"Firefox extension that lets you selectively allow JavaScript and other executable content per site." },
+
+    // Anonymous Browsing
+    { cat:"Anonymous Browsing", name:"I2P", url:"https://geti2p.net/", desc:"Anonymous peer-to-peer network layer for censorship-resistant communication and browsing." },
+    { cat:"Anonymous Browsing", name:"Hyphanet", url:"https://www.hyphanet.org/", desc:"Formerly Freenet, a decentralized peer-to-peer platform for censorship-resistant publishing and browsing." },
+    { cat:"Anonymous Browsing", name:"Psiphon", url:"https://psiphon.ca/", desc:"Open-source circumvention tool combining VPN, SSH and HTTP proxy technology to bypass censorship." },
+    { cat:"Anonymous Browsing", name:"Lantern", url:"https://getlantern.org/", desc:"Free application that helps users bypass internet censorship and access blocked content." },
+    { cat:"Anonymous Browsing", name:"OnionShare", url:"https://onionshare.org/", desc:"Securely and anonymously share files, host websites and chat using Tor onion services." },
+    { cat:"Anonymous Browsing", name:"Orbot", url:"https://guardianproject.info/apps/org.torproject.android/", desc:"Free proxy app that routes mobile app traffic through the Tor network." },
+
+    // Browser Privacy Tests
+    { cat:"Browser Privacy Tests", name:"EFF Cover Your Tracks", url:"https://coveryourtracks.eff.org/", desc:"Tests how well your browser is protected against tracking and fingerprinting." },
+    { cat:"Browser Privacy Tests", name:"BrowserLeaks", url:"https://browserleaks.com/", desc:"Suite of tests that reveal what information your browser leaks to websites." },
+    { cat:"Browser Privacy Tests", name:"AmIUnique", url:"https://amiunique.org/", desc:"Analyzes your browser fingerprint and shows how unique and trackable it is." },
+    { cat:"Browser Privacy Tests", name:"Device Info", url:"https://www.deviceinfo.me/", desc:"Displays detailed technical information your browser and device expose to websites." },
+    { cat:"Browser Privacy Tests", name:"IPLeak", url:"https://ipleak.net/", desc:"Checks for IP, DNS and WebRTC leaks, especially useful when testing a VPN." },
+    { cat:"Browser Privacy Tests", name:"WebKay", url:"https://webkay.robinlinus.com/", desc:"Shows in real time what information about you a website can collect from your browser." },
+
+    // Data Breach Checkers
+    { cat:"Data Breach Checkers", name:"Have I Been Pwned", url:"https://haveibeenpwned.com/", desc:"Checks whether your email address or phone number has appeared in known data breaches." },
+    { cat:"Data Breach Checkers", name:"Firefox Monitor", url:"https://monitor.firefox.com/", desc:"Mozilla's service that alerts you if your email appears in a known data breach." },
+    { cat:"Data Breach Checkers", name:"Cybernews Personal Data Leak Check", url:"https://cybernews.com/personal-data-leak-check/", desc:"Searches breach databases to see if your email or password has been exposed." },
+    { cat:"Data Breach Checkers", name:"Avast Hack Check", url:"https://www.avast.com/hackcheck", desc:"Checks if your email address and passwords have been leaked in a data breach." },
+    { cat:"Data Breach Checkers", name:"F-Secure Identity Theft Checker", url:"https://www.f-secure.com/en/identity-theft-checker", desc:"Scans breach databases to check whether your personal information has been compromised." },
+
+    // DNS Privacy
+    { cat:"DNS Privacy", name:"NextDNS", url:"https://nextdns.io/", desc:"Customizable DNS service with built-in ad and tracker blocking, analytics and parental controls." },
+    { cat:"DNS Privacy", name:"Quad9", url:"https://quad9.net/", desc:"Free security-focused DNS resolver that blocks malicious domains and does not log personal data." },
+    { cat:"DNS Privacy", name:"Cloudflare 1.1.1.1", url:"https://one.one.one.one/", desc:"Fast, privacy-focused public DNS resolver from Cloudflare with DNS-over-HTTPS support." },
+    { cat:"DNS Privacy", name:"AdGuard DNS", url:"https://adguard-dns.io/", desc:"Free DNS service that blocks ads, trackers and malicious domains at the network level." },
+    { cat:"DNS Privacy", name:"ControlD", url:"https://controld.com/", desc:"Customizable DNS resolver offering filtering, analytics and per-device rules." },
+    { cat:"DNS Privacy", name:"Mullvad DNS", url:"https://mullvad.net/en/help/dns-over-https-and-dns-over-tls", desc:"Mullvad's no-logging DNS-over-HTTPS and DNS-over-TLS resolvers." },
+
+    // Encrypted Cloud Storage
+    { cat:"Encrypted Cloud Storage", name:"Proton Drive", url:"https://proton.me/drive", desc:"End-to-end encrypted cloud storage from the makers of Proton Mail." },
+    { cat:"Encrypted Cloud Storage", name:"Tresorit", url:"https://tresorit.com/", desc:"Zero-knowledge encrypted cloud storage aimed at businesses and individuals." },
+    { cat:"Encrypted Cloud Storage", name:"Sync.com", url:"https://www.sync.com/", desc:"Encrypted cloud storage and file sharing with zero-knowledge privacy by default." },
+    { cat:"Encrypted Cloud Storage", name:"Filen", url:"https://filen.io/", desc:"End-to-end encrypted cloud storage with client-side encryption and open-source apps." },
+    { cat:"Encrypted Cloud Storage", name:"pCloud", url:"https://www.pcloud.com/", desc:"Cloud storage service offering an optional zero-knowledge encrypted folder called Crypto." },
+    { cat:"Encrypted Cloud Storage", name:"Icedrive", url:"https://icedrive.net/", desc:"Cloud storage provider offering client-side encrypted storage via its Encrypted Files feature." },
+    { cat:"Encrypted Cloud Storage", name:"MEGA", url:"https://mega.io/", desc:"Cloud storage service providing end-to-end encryption for files by default." },
+
+    // Encrypted Email
+    { cat:"Encrypted Email", name:"Proton Mail", url:"https://proton.me/mail", desc:"End-to-end encrypted email service based in Switzerland with a strong focus on privacy." },
+    { cat:"Encrypted Email", name:"Tuta", url:"https://tuta.com/", desc:"Encrypted email provider that encrypts subject lines, contacts and calendar entries." },
+    { cat:"Encrypted Email", name:"Mailfence", url:"https://mailfence.com/", desc:"Secure email service offering OpenPGP end-to-end encryption and digital signatures." },
+    { cat:"Encrypted Email", name:"Posteo", url:"https://posteo.de/en/", desc:"German privacy-focused email provider funded solely by user fees, not advertising." },
+    { cat:"Encrypted Email", name:"Disroot", url:"https://disroot.org/", desc:"Non-profit collective offering privacy-respecting email and collaboration services." },
+    { cat:"Encrypted Email", name:"StartMail", url:"https://www.startmail.com/", desc:"Encrypted email service from the team behind Startpage with disposable alias addresses." },
+    { cat:"Encrypted Email", name:"Runbox", url:"https://runbox.com/", desc:"Norway-based email provider emphasizing privacy, security and green hosting." },
+
+    // File Encryption
+    { cat:"File Encryption", name:"VeraCrypt", url:"https://www.veracrypt.fr/", desc:"Free open-source disk encryption software for creating encrypted volumes and hidden containers." },
+    { cat:"File Encryption", name:"Cryptomator", url:"https://cryptomator.org/", desc:"Open-source client-side encryption for files you store in any cloud service." },
+    { cat:"File Encryption", name:"7-Zip", url:"https://www.7-zip.org/", desc:"Free file archiver that supports strong AES-256 encryption for compressed archives." },
+    { cat:"File Encryption", name:"GnuPG", url:"https://gnupg.org/", desc:"Free implementation of the OpenPGP standard for encrypting and signing files and email." },
+    { cat:"File Encryption", name:"AxCrypt", url:"https://www.axcrypt.net/", desc:"File encryption software offering AES-256 encryption with cloud storage integration." },
+    { cat:"File Encryption", name:"Picocrypt", url:"https://github.com/Picocrypt/Picocrypt", desc:"Small, open-source and secure file encryption tool built on modern cryptography." },
+    { cat:"File Encryption", name:"PeaZip", url:"https://peazip.github.io/", desc:"Free open-source file archiver supporting strong encryption and secure deletion." },
+
+    // Identity Protection
+    { cat:"Identity Protection", name:"Aura", url:"https://www.aura.com/", desc:"All-in-one identity theft protection with credit monitoring and fraud alerts." },
+    { cat:"Identity Protection", name:"DeleteMe", url:"https://joindeleteme.com/", desc:"Subscription service that removes your personal information from data broker sites." },
+    { cat:"Identity Protection", name:"Identity Guard", url:"https://www.identityguard.com/", desc:"Identity theft protection service with dark web monitoring and alerts." },
+    { cat:"Identity Protection", name:"LifeLock", url:"https://lifelock.norton.com/", desc:"Norton's identity theft protection service with credit and dark web monitoring." },
+    { cat:"Identity Protection", name:"IdentityForce", url:"https://www.identityforce.com/", desc:"Identity theft protection offering monitoring, alerts and restoration services." },
+
+    // Metadata Tools
+    { cat:"Metadata Tools", name:"ExifTool", url:"https://exiftool.org/", desc:"Powerful command-line tool for reading, writing and editing metadata in a wide range of file types." },
+    { cat:"Metadata Tools", name:"MAT2", url:"https://0xacab.org/jvoisin/mat2", desc:"Open-source metadata removal tool supporting many document, image and audio formats." },
+    { cat:"Metadata Tools", name:"ExifCleaner", url:"https://exifcleaner.com/", desc:"Cross-platform app for quickly removing metadata from images and videos." },
+    { cat:"Metadata Tools", name:"Metadata2Go", url:"https://www.metadata2go.com/", desc:"Online tool to view and analyze metadata embedded in uploaded files." },
+    { cat:"Metadata Tools", name:"ImageOptim", url:"https://imageoptim.com/", desc:"Mac app that optimizes images and strips unnecessary metadata by default." },
+    { cat:"Metadata Tools", name:"Scrambled Exif", url:"https://github.com/Margika/ScrambledExif", desc:"Open-source Android app that removes metadata from photos before you share them." },
+
+    // Mobile Privacy
+    { cat:"Mobile Privacy", name:"F-Droid", url:"https://f-droid.org/", desc:"Catalog of free and open-source Android apps without proprietary tracking libraries." },
+    { cat:"Mobile Privacy", name:"NetGuard", url:"https://www.netguard.me/", desc:"Open-source, no-root firewall for Android that blocks apps from accessing the internet." },
+    { cat:"Mobile Privacy", name:"Exodus Privacy", url:"https://exodus-privacy.eu.org/", desc:"Analyzes Android apps to reveal which trackers and permissions they contain." },
+    { cat:"Mobile Privacy", name:"Aurora Store", url:"https://auroraoss.com/", desc:"Open-source Google Play Store client that lets you download apps anonymously." },
+    { cat:"Mobile Privacy", name:"Fossify", url:"https://fossify.org/", desc:"Suite of open-source, privacy-respecting Android apps without ads or unnecessary permissions." },
+    { cat:"Mobile Privacy", name:"DivestOS", url:"https://divestos.org/", desc:"Privacy and security focused Android distribution built for a wide range of older devices." },
+
+    // Open Source Privacy Projects
+    { cat:"Open Source Privacy Projects", name:"Matrix", url:"https://matrix.org/", desc:"Open standard and protocol for secure, decentralized, real-time communication." },
+    { cat:"Open Source Privacy Projects", name:"OpenPGP", url:"https://www.openpgp.org/", desc:"Open standard for encrypting and signing data, used by many secure email tools." },
+    { cat:"Open Source Privacy Projects", name:"Let's Encrypt", url:"https://letsencrypt.org/", desc:"Free, automated, open certificate authority that encrypts the majority of the web." },
+    { cat:"Open Source Privacy Projects", name:"OWASP", url:"https://owasp.org/", desc:"Nonprofit foundation working to improve software security through open community projects." },
+    { cat:"Open Source Privacy Projects", name:"Guardian Project", url:"https://guardianproject.info/", desc:"Develops open-source secure mobile apps and firmware focused on privacy." },
+    { cat:"Open Source Privacy Projects", name:"Delta Chat", url:"https://delta.chat/", desc:"Open-source messaging app that transports encrypted chat messages over ordinary email." },
+
+    // Password Managers
+    { cat:"Password Managers", name:"Bitwarden", url:"https://bitwarden.com/", desc:"Open-source password manager with a free tier and self-hosting option." },
+    { cat:"Password Managers", name:"KeePassXC", url:"https://keepassxc.org/", desc:"Free, open-source, offline password manager with a local encrypted database." },
+    { cat:"Password Managers", name:"1Password", url:"https://1password.com/", desc:"Popular password manager offering secure storage for passwords, passkeys and sensitive documents." },
+    { cat:"Password Managers", name:"Proton Pass", url:"https://proton.me/pass", desc:"End-to-end encrypted password manager from Proton with built-in email aliases." },
+    { cat:"Password Managers", name:"Dashlane", url:"https://www.dashlane.com/", desc:"Password manager offering autofill, dark web monitoring and a built-in VPN." },
+    { cat:"Password Managers", name:"NordPass", url:"https://nordpass.com/", desc:"Password manager from the makers of NordVPN with encrypted storage and sharing." },
+    { cat:"Password Managers", name:"Enpass", url:"https://www.enpass.io/", desc:"Password manager that stores encrypted vaults locally or in your own cloud storage." },
+
+    // Privacy Guides
+    { cat:"Privacy Guides", name:"Privacy Guides", url:"https://www.privacyguides.org/", desc:"Community-driven resource recommending privacy and security tools with detailed comparisons." },
+    { cat:"Privacy Guides", name:"EFF Surveillance Self-Defense", url:"https://ssd.eff.org/", desc:"EFF's guide to protecting yourself and your data from digital surveillance." },
+    { cat:"Privacy Guides", name:"PRISM Break", url:"https://prism-break.org/", desc:"Directory of alternatives to mass-surveillance services and proprietary software." },
+    { cat:"Privacy Guides", name:"Restore Privacy", url:"https://restoreprivacy.org/", desc:"Independent guides and reviews covering VPNs, encrypted email and digital privacy." },
+    { cat:"Privacy Guides", name:"Privacy International", url:"https://privacyinternational.org/", desc:"Nonprofit that campaigns for the right to privacy and investigates surveillance practices." },
+    { cat:"Privacy Guides", name:"Freedom of the Press Foundation", url:"https://freedom.press/", desc:"Nonprofit that supports press freedom and produces digital security guides for journalists." },
+    { cat:"Privacy Guides", name:"Security Planner", url:"https://securityplanner.consumerreports.org/", desc:"Consumer Reports tool that gives personalized security and privacy recommendations." },
+
+    // Privacy Search Engines
+    { cat:"Privacy Search Engines", name:"DuckDuckGo", url:"https://duckduckgo.com/", desc:"Search engine that does not track users or personalize results based on search history." },
+    { cat:"Privacy Search Engines", name:"Startpage", url:"https://www.startpage.com/", desc:"Delivers Google search results while stripping out tracking and identifying data." },
+    { cat:"Privacy Search Engines", name:"Brave Search", url:"https://search.brave.com/", desc:"Independent search engine with its own index, built with privacy as a core principle." },
+    { cat:"Privacy Search Engines", name:"Mojeek", url:"https://www.mojeek.com/", desc:"Independent search engine with its own crawler that does not track users." },
+    { cat:"Privacy Search Engines", name:"SearXNG", url:"https://searxng.org/", desc:"Open-source metasearch engine that aggregates results from multiple engines without tracking." },
+    { cat:"Privacy Search Engines", name:"Qwant", url:"https://www.qwant.com/", desc:"European search engine that emphasizes not tracking or profiling its users." },
+
+    // Privacy Tools
+    { cat:"Privacy Tools", name:"Firefox Relay", url:"https://relay.firefox.com/", desc:"Generates email aliases that forward to your real inbox while hiding your address." },
+    { cat:"Privacy Tools", name:"SimpleLogin", url:"https://simplelogin.io/", desc:"Open-source email alias service that protects your real email address from spam and tracking." },
+    { cat:"Privacy Tools", name:"Addy.io", url:"https://addy.io/", desc:"Open-source anonymous email forwarding service for creating unlimited email aliases." },
+    { cat:"Privacy Tools", name:"MySudo", url:"https://www.mysudo.com/", desc:"App providing multiple private phone numbers, emails and virtual cards for compartmentalizing your identity." },
+    { cat:"Privacy Tools", name:"Privacy.com", url:"https://privacy.com/", desc:"Generates virtual card numbers so you can shop online without exposing your real card details." },
+
+    // Privacy-focused Operating Systems
+    { cat:"Privacy-focused Operating Systems", name:"Tails", url:"https://tails.net/", desc:"Live operating system that routes all connections through Tor and leaves no trace on the host computer." },
+    { cat:"Privacy-focused Operating Systems", name:"Qubes OS", url:"https://www.qubes-os.org/", desc:"Security-focused desktop OS that isolates applications in separate virtual machines." },
+    { cat:"Privacy-focused Operating Systems", name:"Whonix", url:"https://www.whonix.org/", desc:"Operating system designed to run inside a VM and route all traffic through Tor." },
+    { cat:"Privacy-focused Operating Systems", name:"GrapheneOS", url:"https://grapheneos.org/", desc:"Privacy and security hardened mobile OS based on the Android Open Source Project." },
+    { cat:"Privacy-focused Operating Systems", name:"CalyxOS", url:"https://calyxos.org/", desc:"Privacy-focused Android distribution with strong security defaults and de-Googled options." },
+    { cat:"Privacy-focused Operating Systems", name:"PureOS", url:"https://pureos.net/", desc:"Free and open-source Linux distribution developed by Purism with privacy by default." },
+    { cat:"Privacy-focused Operating Systems", name:"Kicksecure", url:"https://www.kicksecure.com/", desc:"Security-hardened Linux distribution that can run standalone or alongside Whonix." },
+
+    // Secure Browsers
+    { cat:"Secure Browsers", name:"Tor Browser", url:"https://www.torproject.org/", desc:"Browser that routes traffic through the Tor network to anonymize browsing and resist tracking." },
+    { cat:"Secure Browsers", name:"Brave", url:"https://brave.com/", desc:"Chromium-based browser with built-in ad and tracker blocking enabled by default." },
+    { cat:"Secure Browsers", name:"Mullvad Browser", url:"https://mullvad.net/en/browser", desc:"Privacy-focused browser developed with the Tor Project to minimize fingerprinting." },
+    { cat:"Secure Browsers", name:"LibreWolf", url:"https://librewolf.net/", desc:"Fork of Firefox configured out of the box for privacy and security." },
+    { cat:"Secure Browsers", name:"Firefox", url:"https://www.mozilla.org/firefox/", desc:"Open-source browser from Mozilla with strong tracking protection and privacy settings." },
+    { cat:"Secure Browsers", name:"Ungoogled Chromium", url:"https://github.com/ungoogled-software/ungoogled-chromium", desc:"Chromium build with Google integrations and tracking features stripped out." },
+
+    // Secure Messaging
+    { cat:"Secure Messaging", name:"Signal", url:"https://signal.org/", desc:"Widely trusted end-to-end encrypted messaging and calling app run by a nonprofit." },
+    { cat:"Secure Messaging", name:"Session", url:"https://getsession.org/", desc:"Decentralized, metadata-resistant messenger that does not require a phone number." },
+    { cat:"Secure Messaging", name:"Threema", url:"https://threema.ch/", desc:"Swiss end-to-end encrypted messenger that can be used without a phone number." },
+    { cat:"Secure Messaging", name:"Element", url:"https://element.io/", desc:"Secure messaging client built on the open Matrix protocol with end-to-end encryption." },
+    { cat:"Secure Messaging", name:"Wire", url:"https://wire.com/", desc:"End-to-end encrypted collaboration and messaging platform for teams and individuals." },
+    { cat:"Secure Messaging", name:"SimpleX Chat", url:"https://simplex.chat/", desc:"Messaging platform with no user identifiers at all, not even random ones." },
+    { cat:"Secure Messaging", name:"Briar", url:"https://briarproject.org/", desc:"Encrypted messenger that can sync over Tor, Wi-Fi or Bluetooth without central servers." },
+    { cat:"Secure Messaging", name:"Jami", url:"https://jami.net/", desc:"Free, distributed, end-to-end encrypted communication platform with no central server." },
+
+    // Security Testing
+    { cat:"Security Testing", name:"Nmap", url:"https://nmap.org/", desc:"Free and open-source network scanner used for security auditing and discovery." },
+    { cat:"Security Testing", name:"Wireshark", url:"https://www.wireshark.org/", desc:"Widely used network protocol analyzer for inspecting traffic in detail." },
+    { cat:"Security Testing", name:"Shodan", url:"https://www.shodan.io/", desc:"Search engine for internet-connected devices, useful for security research." },
+    { cat:"Security Testing", name:"SSL Labs", url:"https://www.ssllabs.com/ssltest/", desc:"Free tool that analyzes the SSL/TLS configuration of any public web server." },
+    { cat:"Security Testing", name:"Security Headers", url:"https://securityheaders.com/", desc:"Scans a website's HTTP response headers and grades its security configuration." },
+    { cat:"Security Testing", name:"Mozilla Observatory", url:"https://observatory.mozilla.org/", desc:"Analyzes a website's security configuration and provides improvement recommendations." },
+    { cat:"Security Testing", name:"Kali Linux", url:"https://www.kali.org/", desc:"Debian-based Linux distribution preloaded with tools for penetration testing and security auditing." },
+
+    // Temporary Email
+    { cat:"Temporary Email", name:"Temp-Mail", url:"https://temp-mail.org/", desc:"Disposable email address generator for quick signups without using your real inbox." },
+    { cat:"Temporary Email", name:"Guerrilla Mail", url:"https://www.guerrillamail.com/", desc:"Free disposable email service with no signup required." },
+    { cat:"Temporary Email", name:"10 Minute Mail", url:"https://10minutemail.com/", desc:"Provides a temporary email address that self-destructs after ten minutes." },
+    { cat:"Temporary Email", name:"Mailinator", url:"https://www.mailinator.com/", desc:"Public disposable inbox system commonly used for testing and quick verifications." },
+    { cat:"Temporary Email", name:"Maildrop", url:"https://maildrop.cc/", desc:"Simple disposable email inbox service with no registration needed." },
+    { cat:"Temporary Email", name:"ThrowAwayMail", url:"https://throwawaymail.com/", desc:"Generates a temporary inbox that automatically expires after a set time." },
+    { cat:"Temporary Email", name:"YOPmail", url:"https://yopmail.com/", desc:"Disposable email service that lets you reuse the same throwaway address repeatedly." },
+
+    // VPN Services
+    { cat:"VPN Services", name:"Proton VPN", url:"https://protonvpn.com/", desc:"No-logs VPN service from the Proton team with a genuinely free tier." },
+    { cat:"VPN Services", name:"Mullvad", url:"https://mullvad.net/", desc:"Privacy-first VPN that does not require an email address and accepts cash payment." },
+    { cat:"VPN Services", name:"IVPN", url:"https://www.ivpn.net/", desc:"Privacy-focused VPN provider known for transparency and strong no-logs practices." },
+    { cat:"VPN Services", name:"NordVPN", url:"https://nordvpn.com/", desc:"Large commercial VPN provider offering a wide server network and extra security features." },
+    { cat:"VPN Services", name:"ExpressVPN", url:"https://www.expressvpn.com/", desc:"Popular VPN service with fast speeds and a broad range of server locations." },
+    { cat:"VPN Services", name:"Windscribe", url:"https://windscribe.com/", desc:"VPN and ad-blocking service with a functional free tier and desktop firewall." },
+    { cat:"VPN Services", name:"OVPN", url:"https://ovpn.com/", desc:"Swedish VPN provider using diskless servers and audited no-logs infrastructure." },
+    { cat:"VPN Services", name:"AirVPN", url:"https://airvpn.org/", desc:"VPN service run by activists and hacktivists, built on OpenVPN and WireGuard." },
+    { cat:"VPN Services", name:"Surfshark", url:"https://surfshark.com/", desc:"Commercial VPN offering unlimited simultaneous device connections and extra privacy tools." },
+
+    // ---- Additional tools ----
+
+    // Account Cleanup (additional)
+    { cat:"Account Cleanup", name:"Simple Opt Out", url:"https://www.simpleopt-out.com/", desc:"Free list of direct opt-out links for many data broker and people-search sites." },
+    { cat:"Account Cleanup", name:"Optery", url:"https://www.optery.com/", desc:"Automated service that finds and requests removal of your personal information from data broker sites." },
+    { cat:"Account Cleanup", name:"DoNotPay", url:"https://donotpay.com/", desc:"Consumer app that automates tasks such as canceling subscriptions and requesting data deletion." },
+    { cat:"Account Cleanup", name:"Incogni", url:"https://incogni.com/", desc:"Subscription service that contacts data brokers on your behalf to remove your personal data." },
+    { cat:"Account Cleanup", name:"PrivacyBee", url:"https://privacybee.com/", desc:"Service that removes personal data from hundreds of data broker and marketing databases." },
+
+    // Ad & Tracker Blocking (additional)
+    { cat:"Ad & Tracker Blocking", name:"Disconnect", url:"https://disconnect.me/", desc:"Visualizes and blocks the invisible websites that track you as you browse." },
+    { cat:"Ad & Tracker Blocking", name:"1Blocker", url:"https://1blocker.com/", desc:"Ad, tracker and cookie-notice blocker built for Safari on Mac, iPhone and iPad." },
+    { cat:"Ad & Tracker Blocking", name:"AdBlock Plus", url:"https://adblockplus.org/", desc:"Long-standing browser extension that blocks ads, trackers and malware domains." },
+    { cat:"Ad & Tracker Blocking", name:"Malwarebytes Browser Guard", url:"https://www.malwarebytes.com/browser-guard", desc:"Browser extension that blocks ads, trackers, tech-support scams and malicious sites." },
+    { cat:"Ad & Tracker Blocking", name:"AdGuard Home", url:"https://github.com/AdguardTeam/AdGuardHome", desc:"Open-source network-wide DNS software that blocks ads and trackers for every device on your network." },
+    { cat:"Ad & Tracker Blocking", name:"Consent-O-Matic", url:"https://github.com/cavi-au/Consent-O-Matic", desc:"Open-source browser extension that automatically answers cookie consent pop-ups with your privacy preferences." },
+
+    // Anonymous Browsing (additional)
+    { cat:"Anonymous Browsing", name:"Snowflake", url:"https://snowflake.torproject.org/", desc:"Tor Project system that turns volunteers' browsers into temporary bridges to help censored users connect." },
+    { cat:"Anonymous Browsing", name:"Ricochet Refresh", url:"https://ricochetrefresh.net/", desc:"Peer-to-peer anonymous instant messenger that connects users through Tor onion services." },
+
+    // Browser Privacy Tests (additional)
+    { cat:"Browser Privacy Tests", name:"Whoer", url:"https://whoer.net/", desc:"Checks your IP address, DNS, and browser settings for privacy and anonymity leaks." },
+    { cat:"Browser Privacy Tests", name:"DNS Leak Test", url:"https://www.dnsleaktest.com/", desc:"Detects whether your DNS requests are leaking outside your VPN or proxy tunnel." },
+    { cat:"Browser Privacy Tests", name:"Privacy.net Analyzer", url:"https://privacy.net/analyzer/", desc:"Shows what personal and technical information your browser reveals to the websites you visit." },
+    { cat:"Browser Privacy Tests", name:"CreepJS", url:"https://abrahamjuliot.github.io/creepjs/", desc:"Advanced open-source fingerprinting demonstration that scores how trackable your browser configuration is." },
+
+    // Data Breach Checkers (additional)
+    { cat:"Data Breach Checkers", name:"DeHashed", url:"https://dehashed.com/", desc:"Searchable database of breached credentials used to check exposure of emails and passwords." },
+    { cat:"Data Breach Checkers", name:"Intelligence X", url:"https://intelx.io/", desc:"Search engine that indexes leaked data, breaches and documents from the surface, deep and dark web." },
+    { cat:"Data Breach Checkers", name:"SpyCloud", url:"https://spycloud.com/", desc:"Monitors for exposed credentials and identity data recovered from breaches and malware logs." },
+
+    // DNS Privacy (additional)
+    { cat:"DNS Privacy", name:"OpenDNS", url:"https://www.opendns.com/", desc:"Cisco's free DNS resolver offering phishing and malware protection with optional content filtering." },
+    { cat:"DNS Privacy", name:"Foundation for Applied Privacy", url:"https://applied-privacy.net/", desc:"Austrian non-profit operating public no-logging DNS-over-HTTPS and DNS-over-TLS resolvers." },
+    { cat:"DNS Privacy", name:"LibreDNS", url:"https://libredns.gr/", desc:"Free privacy-respecting DNS resolver project supporting DNS-over-HTTPS and DNS-over-TLS." },
+    { cat:"DNS Privacy", name:"UncensoredDNS", url:"https://uncensoreddns.org/", desc:"Volunteer-run open DNS resolvers based in Denmark that avoid logging and filtering." },
+    { cat:"DNS Privacy", name:"DNSCrypt", url:"https://dnscrypt.info/", desc:"Documentation and resolver list for the DNSCrypt protocol, which authenticates and encrypts DNS traffic." },
+
+    // Encrypted Cloud Storage (additional)
+    { cat:"Encrypted Cloud Storage", name:"Nextcloud", url:"https://nextcloud.com/", desc:"Open-source, self-hostable file sync and collaboration platform with end-to-end encryption options." },
+    { cat:"Encrypted Cloud Storage", name:"Seafile", url:"https://www.seafile.com/", desc:"Open-source file sync and share platform supporting client-side encrypted libraries." },
+    { cat:"Encrypted Cloud Storage", name:"Cozy Cloud", url:"https://cozy.io/", desc:"French personal cloud platform built around data ownership and privacy by design." },
+    { cat:"Encrypted Cloud Storage", name:"Internxt", url:"https://internxt.com/", desc:"Zero-knowledge, end-to-end encrypted cloud storage service with open-source clients." },
+
+    // Encrypted Email (additional)
+    { cat:"Encrypted Email", name:"Kolab Now", url:"https://kolabnow.com/", desc:"Swiss-hosted privacy-focused email and groupware suite for individuals and businesses." },
+    { cat:"Encrypted Email", name:"Soverin", url:"https://soverin.net/", desc:"Ad-free, privacy-respecting email hosting based in the Netherlands." },
+    { cat:"Encrypted Email", name:"Fastmail", url:"https://www.fastmail.com/", desc:"Independent, ad-free email provider known for strong privacy practices and reliability." },
+    { cat:"Encrypted Email", name:"Mailbox.org", url:"https://mailbox.org/en/", desc:"German email provider offering encrypted mailboxes, calendars and cloud storage." },
+
+    // File Encryption (additional)
+    { cat:"File Encryption", name:"Kryptor", url:"https://github.com/samuel-lucas6/Kryptor", desc:"Free, open-source file encryption tool built on modern authenticated encryption algorithms." },
+    { cat:"File Encryption", name:"age", url:"https://age-encryption.org/", desc:"Simple, modern command-line file encryption tool with small explicit keys." },
+    { cat:"File Encryption", name:"LUKS / cryptsetup", url:"https://gitlab.com/cryptsetup/cryptsetup", desc:"Standard Linux disk encryption specification and command-line tool for managing encrypted volumes." },
+    { cat:"File Encryption", name:"Microsoft BitLocker", url:"https://www.microsoft.com/en-us/windows/bitlocker", desc:"Full-disk encryption feature built into Windows Pro and Enterprise editions." },
+
+    // Identity Protection (additional)
+    { cat:"Identity Protection", name:"PrivacyGuard", url:"https://www.privacyguard.com/", desc:"Identity theft protection service offering credit monitoring and identity restoration support." },
+    { cat:"Identity Protection", name:"Experian IdentityWorks", url:"https://www.experian.com/identityworks/", desc:"Experian's identity theft monitoring and protection product with credit tracking." },
+    { cat:"Identity Protection", name:"McAfee Identity Protection", url:"https://www.mcafee.com/en-us/identity-theft-protection.html", desc:"McAfee's identity monitoring service covering personal information exposure and credit alerts." },
+
+    // Metadata Tools (additional)
+    { cat:"Metadata Tools", name:"Metapicz", url:"https://metapicz.com/", desc:"Free online tool that extracts and displays EXIF and metadata from uploaded images." },
+    { cat:"Metadata Tools", name:"Jeffrey's Image Metadata Viewer", url:"https://exif.regex.info/exif.cgi", desc:"Long-running online viewer for detailed EXIF metadata embedded in photographs." },
+    { cat:"Metadata Tools", name:"FotoForensics", url:"https://fotoforensics.com/", desc:"Image analysis tool that reveals metadata and editing artifacts using error level analysis." },
+
+    // Mobile Privacy (additional)
+    { cat:"Mobile Privacy", name:"Shelter", url:"https://github.com/PeterCxy/Shelter", desc:"Open-source Android app that isolates and freezes other apps using the work profile feature." },
+    { cat:"Mobile Privacy", name:"TrackerControl", url:"https://github.com/OxfordHCC/tracker-control-android", desc:"Open-source Android app that detects and blocks hidden trackers embedded in installed apps." },
+    { cat:"Mobile Privacy", name:"Aegis Authenticator", url:"https://github.com/beemdevelopment/Aegis", desc:"Free, open-source two-factor authentication app for Android with encrypted backups." },
+
+    // Open Source Privacy Projects (additional)
+    { cat:"Open Source Privacy Projects", name:"The Update Framework", url:"https://theupdateframework.io/", desc:"Open-source framework that helps software update systems resist tampering and compromise." },
+    { cat:"Open Source Privacy Projects", name:"Sequoia PGP", url:"https://sequoia-pgp.org/", desc:"Modern, modular implementation of the OpenPGP standard written in Rust." },
+    { cat:"Open Source Privacy Projects", name:"OpenSSL", url:"https://www.openssl.org/", desc:"Widely used open-source toolkit implementing the SSL and TLS cryptographic protocols." },
+    { cat:"Open Source Privacy Projects", name:"Certbot", url:"https://certbot.eff.org/", desc:"EFF's free tool for automatically obtaining and renewing Let's Encrypt TLS certificates." },
+
+    // Password Managers (additional)
+    { cat:"Password Managers", name:"Keeper", url:"https://www.keepersecurity.com/", desc:"Commercial password manager with encrypted vaults, secure file storage and dark web monitoring." },
+    { cat:"Password Managers", name:"RoboForm", url:"https://www.roboform.com/", desc:"Long-standing password manager offering form-filling, secure sharing and password auditing." },
+    { cat:"Password Managers", name:"Psono", url:"https://www.psono.com/", desc:"Open-source, self-hostable password manager designed for teams and individuals." },
+    { cat:"Password Managers", name:"Passbolt", url:"https://www.passbolt.com/", desc:"Open-source password manager built for teams, with self-hosted and cloud options." },
+    { cat:"Password Managers", name:"LastPass", url:"https://www.lastpass.com/", desc:"Widely used commercial password manager offering browser extensions and mobile apps." },
+
+    // Privacy Guides (additional)
+    { cat:"Privacy Guides", name:"Big Ass Data Broker Opt-Out List", url:"https://github.com/yaelwrites/Big-Ass-Data-Broker-Opt-Out-List", desc:"Community-maintained list of direct opt-out instructions for a huge number of data brokers." },
+    { cat:"Privacy Guides", name:"Me and My Shadow", url:"https://myshadow.org/", desc:"Tactical Tech project explaining how personal data is collected online and how to reduce your digital footprint." },
+    { cat:"Privacy Guides", name:"Digital Defense Fund", url:"https://digitaldefensefund.org/", desc:"Digital security guides tailored to activists and organizations facing surveillance risks." },
+    { cat:"Privacy Guides", name:"Security in a Box", url:"https://securityinabox.org/", desc:"Digital security toolkit and guides created for human rights defenders and activists." },
+
+    // Privacy Search Engines (additional)
+    { cat:"Privacy Search Engines", name:"Ecosia", url:"https://www.ecosia.org/", desc:"Search engine that uses ad revenue to plant trees and states it does not build personal ad profiles." },
+    { cat:"Privacy Search Engines", name:"Presearch", url:"https://presearch.com/", desc:"Decentralized search engine that rewards users and aims to reduce reliance on big tech search." },
+    { cat:"Privacy Search Engines", name:"You.com", url:"https://you.com/", desc:"Privacy-oriented search engine offering customizable results without tracking-based personalization." },
+    { cat:"Privacy Search Engines", name:"Swisscows", url:"https://swisscows.com/", desc:"Switzerland-based search engine that emphasizes data protection and family-friendly filtering." },
+    { cat:"Privacy Search Engines", name:"Kagi", url:"https://kagi.com/", desc:"Paid, ad-free search engine that generates revenue from subscriptions instead of user tracking." },
+
+    // Privacy Tools (additional)
+    { cat:"Privacy Tools", name:"Abine Blur", url:"https://www.abine.com/", desc:"Masks your email, phone number and payment card details to reduce spam and tracking." },
+    { cat:"Privacy Tools", name:"Burner", url:"https://www.burnerapp.com/", desc:"App that creates disposable phone numbers for calls and texts you want kept separate from your real number." },
+    { cat:"Privacy Tools", name:"Hushed", url:"https://www.hushed.com/", desc:"Second phone number app offering disposable and long-term private numbers." },
+
+    // Privacy-focused Operating Systems (additional)
+    { cat:"Privacy-focused Operating Systems", name:"Murena (/e/OS)", url:"https://murena.com/", desc:"De-Googled Android-based mobile operating system focused on privacy by default." },
+    { cat:"Privacy-focused Operating Systems", name:"LineageOS", url:"https://lineageos.org/", desc:"Popular open-source Android distribution that can be used without Google services." },
+    { cat:"Privacy-focused Operating Systems", name:"Trisquel", url:"https://trisquel.info/", desc:"Fully free GNU/Linux distribution built entirely from free and open-source software." },
+    { cat:"Privacy-focused Operating Systems", name:"Parrot OS", url:"https://parrotsec.org/", desc:"Security and privacy focused Linux distribution used for penetration testing and anonymous browsing." },
+
+    // Secure Browsers (additional)
+    { cat:"Secure Browsers", name:"Vivaldi", url:"https://vivaldi.com/", desc:"Highly customizable browser with built-in ad and tracker blocking options." },
+    { cat:"Secure Browsers", name:"Waterfox", url:"https://www.waterfox.net/", desc:"Independent Firefox-based browser focused on privacy and legacy extension support." },
+    { cat:"Secure Browsers", name:"Onion Browser", url:"https://onionbrowser.com/", desc:"Free and open-source browser that routes iOS traffic through the Tor network." },
+    { cat:"Secure Browsers", name:"Iridium Browser", url:"https://iridiumbrowser.de/", desc:"Chromium-based desktop browser hardened to remove tracking and telemetry features." },
+
+    // Secure Messaging (additional)
+    { cat:"Secure Messaging", name:"Tox", url:"https://tox.chat/", desc:"Open-source peer-to-peer protocol and apps for encrypted messaging, voice and video calls." },
+    { cat:"Secure Messaging", name:"Cwtch", url:"https://cwtch.im/", desc:"Metadata-resistant messaging platform built on top of the Tor network." },
+    { cat:"Secure Messaging", name:"Status", url:"https://status.im/", desc:"Decentralized messenger, crypto wallet and Web3 browser built on secure messaging protocols." },
+    { cat:"Secure Messaging", name:"Keybase", url:"https://keybase.io/", desc:"Encrypted chat and file-sharing platform built around public-key cryptography and identity verification." },
+    { cat:"Secure Messaging", name:"Berty", url:"https://berty.tech/", desc:"Open-source, offline-first secure messenger that works without relying on central servers." },
+
+    // Security Testing (additional)
+    { cat:"Security Testing", name:"Metasploit", url:"https://www.metasploit.com/", desc:"Widely used open-source framework for developing and executing penetration tests." },
+    { cat:"Security Testing", name:"OWASP ZAP", url:"https://www.zaproxy.org/", desc:"Free open-source web application security scanner maintained by the OWASP community." },
+    { cat:"Security Testing", name:"Burp Suite", url:"https://portswigger.net/burp", desc:"Industry-standard toolkit for testing the security of web applications." },
+    { cat:"Security Testing", name:"Censys", url:"https://censys.io/", desc:"Internet-wide scanning search engine used to discover and assess exposed devices and services." },
+    { cat:"Security Testing", name:"Pentest-Tools.com", url:"https://pentest-tools.com/", desc:"Online platform offering a suite of automated penetration testing and reconnaissance tools." },
+
+    // Temporary Email (additional)
+    { cat:"Temporary Email", name:"Fake Mail Generator", url:"https://www.fakemailgenerator.com/", desc:"Instantly generates a disposable email address for signups and testing." },
+    { cat:"Temporary Email", name:"EmailOnDeck", url:"https://www.emailondeck.com/", desc:"Temporary email service designed for quick, anonymous account verification." },
+    { cat:"Temporary Email", name:"Dropmail", url:"https://dropmail.me/", desc:"Disposable inbox service that generates random temporary email addresses instantly." },
+    { cat:"Temporary Email", name:"Mohmal", url:"https://www.mohmal.com/en", desc:"Free temporary email service available in multiple languages with no signup required." },
+    { cat:"Temporary Email", name:"Tempail", url:"https://tempail.com/", desc:"Disposable email address generator with a simple, ad-supported inbox interface." },
+
+    // VPN Services (additional)
+    { cat:"VPN Services", name:"CyberGhost", url:"https://www.cyberghostvpn.com/", desc:"Large commercial VPN provider with dedicated servers for streaming and torrenting." },
+    { cat:"VPN Services", name:"PrivadoVPN", url:"https://privadovpn.com/", desc:"VPN provider offering a genuinely free tier alongside paid plans with global servers." },
+    { cat:"VPN Services", name:"TunnelBear", url:"https://www.tunnelbear.com/", desc:"User-friendly VPN service known for its simple apps and published independent security audits." },
+    { cat:"VPN Services", name:"Perfect Privacy", url:"https://www.perfect-privacy.com/", desc:"Privacy-focused VPN provider offering advanced features like cascading multi-hop connections." },
+    { cat:"VPN Services", name:"Njalla", url:"https://njal.la/", desc:"Privacy-oriented service offering anonymous domain registration alongside a VPN product." },
+    { cat:"VPN Services", name:"Private Internet Access", url:"https://www.privateinternetaccess.com/", desc:"Long-standing VPN provider with a large server network and open-source apps." }
+  ];
+
+  /* ==========================================================
+     3. STATE
+     ========================================================== */
+  var COLLAPSE_KEY = "privacyToolkit.collapsedCategories";
+  var collapsed = {};
+  try{
+    collapsed = JSON.parse(localStorage.getItem(COLLAPSE_KEY)) || {};
+  }catch(e){ collapsed = {}; }
+
+  function saveCollapsedState(){
+    try{ localStorage.setItem(COLLAPSE_KEY, JSON.stringify(collapsed)); }catch(e){}
+  }
+
+  function slugify(str){
+    return str.toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/(^-|-$)/g,"");
+  }
+
+  /* ==========================================================
+     4. BUILD CATEGORY NAV
+     ========================================================== */
+  var catNav = document.getElementById("catNav");
+  CATEGORY_META.forEach(function(meta){
+    var count = TOOLS.filter(function(t){ return t.cat === meta.name; }).length;
+    var a = document.createElement("a");
+    a.href = "#cat-" + slugify(meta.name);
+    a.innerHTML = meta.icon + " " + meta.name + " <span class='count'>(" + count + ")</span>";
+    catNav.appendChild(a);
+  });
+
+  /* ==========================================================
+     5. BUILD MAIN CONTENT (category blocks + cards)
+     ========================================================== */
+  var main = document.getElementById("mainContent");
+  var noResultsEl = document.getElementById("noResults");
+
+  CATEGORY_META.forEach(function(meta){
+    var id = "cat-" + slugify(meta.name);
+    var items = TOOLS.filter(function(t){ return t.cat === meta.name; });
+
+    var block = document.createElement("section");
+    block.className = "category-block";
+    block.id = id;
+    block.setAttribute("data-cat", meta.name);
+    if(collapsed[meta.name]) block.classList.add("collapsed");
+
+    var header = document.createElement("div");
+    header.className = "category-header";
+    header.innerHTML =
+      "<div class='title-group'>" +
+        "<div class='emoji'>" + meta.icon + "</div>" +
+        "<div>" +
+          "<h2>" + meta.name + "</h2>" +
+          "<div class='subcount'><span class='visible-count'>" + items.length + "</span> of " + items.length + " tools</div>" +
+        "</div>" +
+      "</div>" +
+      "<div class='chevron'>▾</div>";
+
+    header.addEventListener("click", function(){
+      block.classList.toggle("collapsed");
+      collapsed[meta.name] = block.classList.contains("collapsed");
+      saveCollapsedState();
+    });
+
+    var body = document.createElement("div");
+    body.className = "category-body";
+
+    items.forEach(function(tool){
+      var card = document.createElement("article");
+      card.className = "card";
+      card.setAttribute("data-name", tool.name.toLowerCase());
+      card.setAttribute("data-desc", tool.desc.toLowerCase());
+      card.setAttribute("data-cat", tool.cat.toLowerCase());
+
+      var h3 = document.createElement("h3");
+      h3.textContent = tool.name;
+
+      var urlLine = document.createElement("div");
+      urlLine.className = "url-line";
+      urlLine.textContent = tool.url.replace(/^https?:\/\//,"").replace(/\/$/,"");
+
+      var p = document.createElement("p");
+      p.className = "desc";
+      p.textContent = tool.desc;
+
+      var actions = document.createElement("div");
+      actions.className = "card-actions";
+
+      var openBtn = document.createElement("a");
+      openBtn.href = tool.url;
+      openBtn.target = "_blank";
+      openBtn.rel = "noopener noreferrer";
+      openBtn.textContent = "Open ↗";
+
+      var copyBtn = document.createElement("button");
+      copyBtn.type = "button";
+      copyBtn.textContent = "Copy URL";
+      copyBtn.addEventListener("click", function(){
+        var finish = function(ok){
+          copyBtn.textContent = ok ? "Copied!" : "Copy failed";
+          copyBtn.classList.toggle("copied", ok);
+          setTimeout(function(){
+            copyBtn.textContent = "Copy URL";
+            copyBtn.classList.remove("copied");
+          }, 1500);
+        };
+        if(navigator.clipboard && navigator.clipboard.writeText){
+          navigator.clipboard.writeText(tool.url).then(function(){ finish(true); }, function(){ finish(false); });
+        } else {
+          try{
+            var ta = document.createElement("textarea");
+            ta.value = tool.url;
+            ta.style.position = "fixed";
+            ta.style.opacity = "0";
+            document.body.appendChild(ta);
+            ta.focus(); ta.select();
+            document.execCommand("copy");
+            document.body.removeChild(ta);
+            finish(true);
+          }catch(e){ finish(false); }
+        }
+      });
+
+      actions.appendChild(openBtn);
+      actions.appendChild(copyBtn);
+
+      card.appendChild(h3);
+      card.appendChild(urlLine);
+      card.appendChild(p);
+      card.appendChild(actions);
+      body.appendChild(card);
+    });
+
+    block.appendChild(header);
+    block.appendChild(body);
+    main.appendChild(block);
+  });
+
+  main.appendChild(noResultsEl);
+
+  /* Update badge totals */
+  document.getElementById("totalToolsBadge").textContent = TOOLS.length + " tools";
+  document.getElementById("totalCatsBadge").textContent = CATEGORY_META.length + " categories";
+
+  /* ==========================================================
+     6. LIVE SEARCH
+     ========================================================== */
+  var searchInput = document.getElementById("searchInput");
+  var resultCounter = document.getElementById("resultCounter");
+  var allCards = Array.prototype.slice.call(document.querySelectorAll(".card"));
+  var allBlocks = Array.prototype.slice.call(document.querySelectorAll(".category-block"));
+
+  function runSearch(){
+    var q = searchInput.value.trim().toLowerCase();
+    var visibleTotal = 0;
+
+    allBlocks.forEach(function(block){
+      var visibleInBlock = 0;
+      var cards = block.querySelectorAll(".card");
+      cards.forEach(function(card){
+        var matches = !q ||
+          card.getAttribute("data-name").indexOf(q) !== -1 ||
+          card.getAttribute("data-desc").indexOf(q) !== -1 ||
+          card.getAttribute("data-cat").indexOf(q) !== -1;
+        card.style.display = matches ? "" : "none";
+        if(matches) visibleInBlock++;
+      });
+
+      visibleTotal += visibleInBlock;
+
+      var countEl = block.querySelector(".visible-count");
+      if(countEl) countEl.textContent = visibleInBlock;
+
+      // Hide whole category block if nothing matches while searching
+      block.style.display = (q && visibleInBlock === 0) ? "none" : "";
+
+      // Auto-expand blocks that have matches during an active search
+      if(q && visibleInBlock > 0){
+        block.classList.remove("collapsed");
+      } else if(!q){
+        // restore stored collapsed state when search is cleared
+        var catName = block.getAttribute("data-cat");
+        block.classList.toggle("collapsed", !!collapsed[catName]);
+      }
+    });
+
+    resultCounter.innerHTML = "<strong>" + visibleTotal + "</strong> tool" + (visibleTotal === 1 ? "" : "s") + " shown";
+    noResultsEl.style.display = (visibleTotal === 0) ? "block" : "none";
+  }
+
+  searchInput.addEventListener("input", runSearch);
+
+  /* ==========================================================
+     7. EXPAND / COLLAPSE ALL
+     ========================================================== */
+  document.getElementById("expandAllBtn").addEventListener("click", function(){
+    allBlocks.forEach(function(block){
+      block.classList.remove("collapsed");
+      collapsed[block.getAttribute("data-cat")] = false;
+    });
+    saveCollapsedState();
+  });
+
+  document.getElementById("collapseAllBtn").addEventListener("click", function(){
+    allBlocks.forEach(function(block){
+      block.classList.add("collapsed");
+      collapsed[block.getAttribute("data-cat")] = true;
+    });
+    saveCollapsedState();
+  });
+
+  /* ==========================================================
+     8. BACK TO TOP
+     ========================================================== */
+  var backToTop = document.getElementById("backToTop");
+  window.addEventListener("scroll", function(){
+    backToTop.style.display = (window.scrollY > 500) ? "flex" : "none";
+  });
+  backToTop.addEventListener("click", function(){
+    window.scrollTo({ top:0, behavior:"smooth" });
+  });
+
+  /* Initial run to set counters correctly */
+  runSearch();
+
+})();
+</script>
+
+</body>
+</html>
