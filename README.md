@@ -44,7 +44,7 @@ Each category header displays a live count of the tools it contains.
 
 ## 🚀 How to Use
 
-1. Open: https://zoardgodor.github.io/privacy-toolkit
+1. Open: [https://zoardgodor.github.io/privacy-toolkit](https://zoardgodor.github.io/privacy-toolkit/)
 2. Use the **search bar** at the top to instantly filter tools by name, description, or category.
 3. Click a **category header** to expand or collapse it. Your collapsed/expanded state is saved locally in your browser.
 4. Use the **Open ↗** button on any card to visit the tool's website, or **Copy URL** to copy the link to your clipboard.
